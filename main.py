@@ -4,6 +4,7 @@ from nba_api.live.nba.endpoints import boxscore
 from datetime import datetime, timezone
 from dateutil import parser
 import time
+from PIL import Image, ImageTk
 
 # widgets = GUI elements: buttons, textboxes, labels, images
 # windows = serves as a container to hold or contain these widgets
@@ -33,6 +34,7 @@ def refresh():
         gameList.append(Label(window, text= f.format(gameStatus=gameInfo['gameStatusText'], awayScore=gameInfo['awayTeam']['score'] ,awayTeam=game['awayTeam']['teamName'], homeScore=gameInfo['homeTeam']['score'],homeTeam=game['homeTeam']['teamName'], gameTimeLTZ=gameTimeLTZ)))
         gameList[counter].grid(row=counter+1, column=1)
         counter += 1
+        
     dateLabel.grid(row=0, column=0)
 
 #creates a button that allows the user to  refresh to get live information
