@@ -18,12 +18,13 @@ window.iconphoto(True, icon)
 #format for how the output will look like
 f = "--{gameStatus}-- {awayScore} {awayTeam} vs. {homeScore} {homeTeam} @ {gameTimeLTZ}"
 
-board = scoreboard.ScoreBoard()
-dateLabel = Label(window, text="Date: " + board.score_board_date)
-gameList = []
-games = board.games.get_dict()
+
 #function that gets the game information
 def refresh():
+    board = scoreboard.ScoreBoard()
+    dateLabel = Label(window, text="Date: " + board.score_board_date)
+    gameList = []
+    games = board.games.get_dict()
     counter = 0 
     for game in games:
         box = boxscore.BoxScore(game['gameId'])
@@ -32,7 +33,7 @@ def refresh():
         gameList.append(Label(window, text= f.format(gameStatus=gameInfo['gameStatusText'], awayScore=gameInfo['awayTeam']['score'] ,awayTeam=game['awayTeam']['teamName'], homeScore=gameInfo['homeTeam']['score'],homeTeam=game['homeTeam']['teamName'], gameTimeLTZ=gameTimeLTZ)))
         gameList[counter].grid(row=counter+1, column=1)
         counter += 1
-dateLabel.grid(row=0, column=0)
+    dateLabel.grid(row=0, column=0)
 
 #creates a button that allows the user to  refresh to get live information
 refresh_button = Button(window, text="Refresh", command=refresh)
