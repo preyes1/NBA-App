@@ -28,11 +28,15 @@ def refresh():
     games = board.games.get_dict()
     counter = 0 
     for game in games:
-        box = boxscore.BoxScore(game['gameId'])
-        gameInfo = box.game.get_dict()
-        gameTimeLTZ = parser.parse(game["gameTimeUTC"]).replace(tzinfo=timezone.utc).astimezone(tz=None)
-        gameList.append(Label(window, text= f.format(gameStatus=gameInfo['gameStatusText'], awayScore=gameInfo['awayTeam']['score'] ,awayTeam=game['awayTeam']['teamName'], homeScore=gameInfo['homeTeam']['score'],homeTeam=game['homeTeam']['teamName'], gameTimeLTZ=gameTimeLTZ)))
-        gameList[counter].grid(row=counter+1, column=1)
+        try:
+            box = boxscore.BoxScore(game['gameId'])
+            gameInfo = box.game.get_dict()
+            gameTimeLTZ = parser.parse(game["gameTimeUTC"]).replace(tzinfo=timezone.utc).astimezone(tz=None)
+            gameList.append(Label(window, text= f.format(gameStatus=gameInfo['gameStatusText'], awayScore=gameInfo['awayTeam']['score'] ,awayTeam=game['awayTeam']['teamName'], homeScore=gameInfo['homeTeam']['score'],homeTeam=game['homeTeam']['teamName'], gameTimeLTZ=gameTimeLTZ)))
+            gameList[counter].grid(row=counter+1, column=1)
+        except:
+            placeHolder = Label(window, text=f"Game {counter}")
+            placeHolder.grid(row=counter+1, column=1)
         counter += 1
         
     dateLabel.grid(row=0, column=0)
