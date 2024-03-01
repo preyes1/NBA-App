@@ -1,2 +1,2 @@
 # NBA-App
- This is my first time using an API
+ Users will be able to view the NBA games and their scoreboard in one place
